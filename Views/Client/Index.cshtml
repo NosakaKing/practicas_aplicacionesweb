@@ -1,0 +1,93 @@
+﻿@model IEnumerable<practica.Models.ClientModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Lista de CLientes</h2>
+
+<a class="text-white btn btn-primary btn-sm" asp-action="Create">Crear Nuevo Cliente</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               Cedúla
+            </th>
+            <th>
+               Nombre
+            </th>
+            <th>
+                Apellido
+            </th>
+            <th>
+               Correo Electrónico
+            </th>
+            <th>
+                Teléfono
+            </th>
+            <th>
+                Dirección
+            </th>
+            <th>
+                Edad
+            </th>
+            <th>
+                Genero
+            </th>
+            <th>
+                Fecha de Nacimiento
+            </th>
+            <th>
+                Acciones
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cedula_RUC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+        
+                        @if (item.Gender)
+                        {
+                            @:Masculino
+                        }
+                        else
+                        {
+                            @:Femenino
+                        }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfBirth)
+            </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Editar</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Detalles</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Eliminar</a>
+                </td>
+        </tr>
+}
+    </tbody>
+</table>

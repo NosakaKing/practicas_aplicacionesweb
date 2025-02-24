@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "Nuevo Cliente";
+}
+<h1>@ViewData["Title"]</h1>
+<p>
+    Porfavor llene el siguiente formulario para registrar un nuevo cliente.
+</p>
+
+<form action="/Home/Index" method="post">
+    <div class="row">
+        <div class="container-fluid">
+            <div class="col-lg-3">
+                <label for="Cedula_RUC">Cédula/RUC</label>
+                <input type="text" id="Cedula_RUC" name="Cedula_RUC" value="" placeholder="Ingrese su cédula o RUC" />
+            </div>
+            <div class="col-lg-3">
+                <label for="Name">Nombres</label>
+                <input type="text" id="Name" name="Name" value="" placeholder="Ingrese sus nombres" />
+            </div>
+            <div class="col-lg-3">
+                <label for="LastName">Apellidos</label>
+                <input type="text" id="LastName" name="LastName" value="" placeholder="Ingrese sus apellidos" />
+            </div>
+            <div class="col-lg-3">
+                <label for="Email">Correo Electrónico</label>
+                <input type="email" id="Email" name="Email" value="" placeholder="Ingrese su correo electrónico" />
+            </div>
+            <div class="col-lg-3">
+                <label for="Phone">Teléfono</label>
+                <input type="text" id="Phone" name="Phone" value="" placeholder="Ingrese su teléfono" />
+            </div>
+            <div class="col-lg-3">
+                <label for="Address">Dirección</label>
+                <input type="text" id="Address" name="Address" value="" placeholder="Ingrese su dirección" />
+            </div>
+            <div class="col-lg-3">
+                <label for="Age">Edad</label>
+                <input type="number" id="Age" name="Age" value="" placeholder="Ingrese su edad" />
+            </div>
+            <div class="col-lg-3">
+                <label for="Gender">Género</label>
+                <select id="Gender" name="Gender">
+                    <option value="true">Masculino</option>
+                    <option value="false">Femenino</option>
+                </select>
+            </div>
+            <div class="col-lg-3">
+                <label for="DateOfBirth">Fecha de Nacimiento</label>
+                <input type="date" id="DateOfBirth" name="DateOfBirth" value="" />
+            </div>
+        </div>
+    </div>
+    <button type="submit">Registrar</button>
+</form>
+
+
