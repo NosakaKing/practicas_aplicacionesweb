@@ -1,0 +1,38 @@
+﻿@model IEnumerable<practica.Models.RolModel>
+
+@{
+    ViewData["Title"] = "Lista de Roles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var contador = 1;   
+}
+
+<h2>Lista de Roles</h2>
+
+<a class="text-white btn btn-primary btn-sm" asp-action="New">Crear Nuevo Rol</a>
+
+
+<table class="table table-bordered table-responsive">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Nombre</th>
+
+            </thead>
+    <tbody>
+      @foreach (var item in Model)
+      {
+        <tr>
+            <td>@contador</td>
+            <td>@item.Name</td>
+            <td>
+                <a class="text-white
+                btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                <a class="text-white
+                btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                </td>
+                </tr>
+                contador++;
+                }
+    </tbody>
+
+</table>

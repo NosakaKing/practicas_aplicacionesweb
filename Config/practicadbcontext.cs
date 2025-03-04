@@ -8,5 +8,6 @@ namespace practica.Config
         public practicadbcontext(DbContextOptions contexto): base(contexto) {}
 
         public DbSet<ClientModel> Clients { get; set; }
+        public DbSet<RolModel> Roles { get; set; }
     }
 }

@@ -1,0 +1,31 @@
+﻿@model practica.Models.RolModel
+
+@{
+    ViewData["Title"] = "Nuevo";
+    Layout = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1>Nuevo Rol</h1>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="New" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+</div>
+            <divc lass="from-group">
+                <input type="submit" value="nuevo" class="btn btn-outline-success" />
+                <a asp-action="Index" class="btn btn-outline-danger">Cancelar</a>
+            </divc>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

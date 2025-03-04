@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using practica.Config;
 using practica.Models;
 
@@ -13,16 +10,19 @@ namespace practica.Controllers
     public class ClientController : Controller
     {
         private readonly practicadbcontext _context;
+        private readonly ILogger<ClientController> _logger;
 
-        public ClientController(practicadbcontext context)
+        public ClientController(practicadbcontext context, ILogger<ClientController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         // GET: Client
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Clients.ToListAsync());
+            var practicadbcontext = _context.Clients.Include(c => c.Rol);
+            return View(await practicadbcontext.ToListAsync());
         }
 
         // GET: Client/Details/5
@@ -34,6 +34,7 @@ namespace practica.Controllers
             }
 
             var clientModel = await _context.Clients
+                .Include(c => c.Rol)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (clientModel == null)
             {
@@ -46,22 +47,36 @@ namespace practica.Controllers
         // GET: Client/Create
         public IActionResult Create()
         {
+            ViewData["RolId"] = new SelectList(_context.Roles, "Id", "Name");
             return View();
         }
 
         // POST: Client/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Cedula_RUC,Name,LastName,Email,Phone,Address,Age,Gender,DateOfBirth")] ClientModel clientModel)
+        public async Task<IActionResult> Create([Bind("Id,Cedula_RUC,Name,LastName,Email,Phone,Address,RolId,Age,Gender,DateOfBirth")] ClientModel clientModel)
         {
+            _logger.LogInformation("Entering Create POST method");
+
             if (ModelState.IsValid)
             {
+                _logger.LogInformation("Model state is valid");
                 _context.Add(clientModel);
                 await _context.SaveChangesAsync();
+                _logger.LogInformation("ClientModel saved successfully");
                 return RedirectToAction(nameof(Index));
             }
+
+            _logger.LogWarning("Model state is invalid");
+            foreach (var modelState in ModelState.Values)
+            {
+                foreach (var error in modelState.Errors)
+                {
+                    _logger.LogError(error.ErrorMessage);
+                }
+            }
+
+            ViewData["RolId"] = new SelectList(_context.Roles, "Id", "Name", clientModel.RolId);
             return View(clientModel);
         }
 
@@ -78,15 +93,14 @@ namespace practica.Controllers
             {
                 return NotFound();
             }
+            ViewData["RolId"] = new SelectList(_context.Roles, "Id", "Name", clientModel.RolId);
             return View(clientModel);
         }
 
         // POST: Client/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Cedula_RUC,Name,LastName,Email,Phone,Address,Age,Gender,DateOfBirth")] ClientModel clientModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Cedula_RUC,Name,LastName,Email,Phone,Address,RolId,Age,Gender,DateOfBirth")] ClientModel clientModel)
         {
             if (id != clientModel.Id)
             {
@@ -113,6 +127,7 @@ namespace practica.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["RolId"] = new SelectList(_context.Roles, "Id", "Name", clientModel.RolId);
             return View(clientModel);
         }
 
@@ -125,6 +140,7 @@ namespace practica.Controllers
             }
 
             var clientModel = await _context.Clients
+                .Include(c => c.Rol)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (clientModel == null)
             {
@@ -155,3 +171,4 @@ namespace practica.Controllers
         }
     }
 }
+

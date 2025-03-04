@@ -9,10 +9,10 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Cedula_RUC" class="control-label">Cèdula</label>
+                <label asp-for="Cedula_RUC" class="control-label">Cédula</label>
                 <input asp-for="Cedula_RUC" class="form-control" />
                 <span asp-validation-for="Cedula_RUC" class="text-danger"></span>
             </div>
@@ -27,17 +27,22 @@
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Email" class="control-label">Correo Electrònico</label>
+                <label asp-for="RolId" class="control-label">Seleccione un Rol</label>
+                <select asp-for="RolId" class="form-control" asp-items="ViewBag.RolId"></select>
+                <span asp-validation-for="RolId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label">Correo Electrónico</label>
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Phone" class="control-label">Telèfono</label>
+                <label asp-for="Phone" class="control-label">Teléfono</label>
                 <input asp-for="Phone" class="form-control" />
                 <span asp-validation-for="Phone" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Address" class="control-label">Direcciòn</label>
+                <label asp-for="Address" class="control-label">Dirección</label>
                 <input asp-for="Address" class="form-control" />
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
@@ -65,10 +70,12 @@
 
 <div class="mt-5">
     <button type="button" class="btn btn-primary text-white">
-        <a class="text-white" asp-action="Index">Ir al menù principal</a>
+        <a class="text-white" asp-action="Index">Ir al menú principal</a>
     </button>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
