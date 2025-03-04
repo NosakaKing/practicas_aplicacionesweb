@@ -1,4 +1,5 @@
-<h1 align="center">Cada Semana se encuentra en diferentes ramas</h1>
+# Cada Semana se encuentra en diferentes ramas.
+> Redigir a Semana 3 [Semana 3](https://www.youtube.com/@AluraLatam)
 <h2>Semana 2- Raul Duran</h2>
 <h2>Todos los usuarios y acciones como eliminar, editar</h2>
 <p align="center">
